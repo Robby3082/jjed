@@ -2,13 +2,14 @@ import Link from "next/link";
 import { FC, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useWalletNfts, NftTokenAccount } from "@nfteyez/sol-rayz-react";
+import { useWalletNfts, NftTokenAccount,  } from "@nfteyez/sol-rayz-react";
 import { useConnection } from "@solana/wallet-adapter-react";
-
 import { Loader, SolanaLogo, SelectAndConnectWalletButton } from "components";
 import { NftCard } from "./NftCard";
 import styles from "./index.module.css";
-const walletPublicKey = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
+import { getParsedNftAccountsByUpdateAuthority } from '@nfteyez/sol-rayz';
+const walletPublicKey = "";
+
 
 export const GalleryView: FC = ({}) => {
   const { connection } = useConnection();
@@ -19,7 +20,9 @@ export const GalleryView: FC = ({}) => {
   const { nfts, isLoading, error } = useWalletNfts({
     publicAddress: walletToParsePublicKey,
     connection,
+    
   });
+ 
 
   console.log("nfts", nfts);
 
@@ -40,19 +43,21 @@ export const GalleryView: FC = ({}) => {
         <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
           <div className="flex-none">
             <button className="btn btn-square btn-ghost">
-              <span className="text-4xl">🏞</span>
+              <span className="text-4xl"></span>
             </button>
           </div>
           <div className="flex-1 px-2 mx-2">
             <div className="text-sm breadcrumbs">
-              <ul className="text-xl">
+              <ul className="text-xl blackcolor">
+              <li className="nav-item">
+                            <Link href="/">
+                  <a className="nav-link">
+                 Home
+                  </a>
+                </Link>
+                            </li>
                 <li>
-                  <Link href="/">
-                    <a>Templates</a>
-                  </Link>
-                </li>
-                <li>
-                  <span className="opacity-40">NFT Gallery</span>
+                 NFT Gallery
                 </li>
               </ul>
             </div>
@@ -66,29 +71,13 @@ export const GalleryView: FC = ({}) => {
           <div className="hero min-h-16 p-0 pt-10">
             <div className="text-center hero-content w-full">
               <div className="w-full">
-                <h1 className="mb-5 text-5xl">
-                  NFT Gallery on Solana <SolanaLogo />
-                </h1>
-
+               
                 <div className="w-full min-w-full">
-                  <p className="mb-5">
-                    Here is very basic example of NFT Gallery. It parses
-                    mainnet. <br />
-                    And uses{" "}
-                    <a
-                      href="https://www.npmjs.com/package/@nfteyez/sol-rayz-react"
-                      target="_blank"
-                      className="link font-bold"
-                      rel="noreferrer"
-                    >
-                      @nfteyez/sol-rayz-react
-                    </a>{" "}
-                    package to fetch NFTs for specific wallet.
-                  </p>
+           
                   <div>
                     <div className="form-control mt-8">
-                      <label className="input-group input-group-vertical input-group-lg">
-                        <span>Search</span>
+                      <label className="">
+                        
                         <div className="flex space-x-2">
                           <input
                             type="text"
@@ -100,7 +89,7 @@ export const GalleryView: FC = ({}) => {
                               borderRadius:
                                 "0 0 var(--rounded-btn,.5rem) var(--rounded-btn,.5rem)",
                             }}
-                          />
+                          readOnly/>
 
                           <SelectAndConnectWalletButton
                             onUseWalletClick={onUseWalletClick}
@@ -113,7 +102,7 @@ export const GalleryView: FC = ({}) => {
                 <div className="my-10">
                   {error ? (
                     <div>
-                      <h1>Error Occures</h1>
+                      <h1>Connect Your Wallet and check out your NFTs</h1>
                       {(error as any)?.message}
                     </div>
                   ) : null}
