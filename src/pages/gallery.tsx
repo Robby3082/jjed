@@ -7,7 +7,7 @@ const Home: NextPage = (props) => {
     <div>
       <Head>
         <title>NFT Gallery!</title>
-      
+        <meta name="description" content="This site will fly high 🦤" />
       </Head>
       <GalleryView />
     </div>
